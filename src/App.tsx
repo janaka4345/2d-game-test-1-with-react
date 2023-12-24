@@ -1,5 +1,4 @@
 import "./App.css";
-import Canvas from "./components/Canvas";
 import ShooterRobot from "./components/ShooterRobot";
 
 function App() {
