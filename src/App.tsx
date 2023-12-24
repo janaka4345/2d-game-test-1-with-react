@@ -2,6 +2,8 @@ import "./App.css";
 import ShooterRobot from "./components/ShooterRobot";
 
 function App() {
+  console.log("hi");
+
   return (
     <>
       {/* <Canvas1 /> */}

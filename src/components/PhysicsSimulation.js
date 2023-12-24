@@ -5,11 +5,11 @@ import { Engine, Bodies, Runner, Composite } from "matter-js";
 export const createPhysicsSimulation = () => {
   const engine = useRef(
     Engine.create({
-      gravity: { x: 0, y: 0 },
+      // gravity: { x: 0, y: 0 },
     }),
   );
 
-  const setupPhysics = () => {
+  useEffect(() => {
     const cw = 400;
     const ch = 400;
 
@@ -34,7 +34,7 @@ export const createPhysicsSimulation = () => {
 
     const player = Bodies.circle(cw / 2, ch / 2, 50, {
       label: "player",
-      isStatic: true,
+      // isStatic: true,
     });
 
     Composite.add(engine.current.world, [...walls, player]);
@@ -48,7 +48,7 @@ export const createPhysicsSimulation = () => {
       Composite.remove(engine.current.world, engine.current.world.bodies);
       Engine.clear(engine.current);
     };
-  };
+  }, []);
 
-  return { engine, setupPhysics };
+  return { engine };
 };
