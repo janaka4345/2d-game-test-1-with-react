@@ -1,4 +1,8 @@
-import { collitionDetection, createBullet } from "./PhysicsSimulation";
+import {
+  collitionDetection,
+  createBullet,
+  deleteBody,
+} from "./PhysicsSimulation";
 
 // P5Sketch.js
 export function sketch(p5, engine) {
@@ -91,6 +95,13 @@ const renderBodies = (p5, engine) => {
       p5.fill(0, 0, 0);
       p5.circle(body.position.x, body.position.y, 20);
       p5.pop();
+    }
+    if (body.label === "delete") {
+      p5.push();
+      p5.fill(255, 0, 0);
+      p5.circle(body.position.x, body.position.y, 20);
+      p5.pop();
+      deleteBody(body);
     }
   });
 };
