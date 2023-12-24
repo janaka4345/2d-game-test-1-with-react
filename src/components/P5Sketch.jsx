@@ -1,9 +1,11 @@
+import { createBullet } from "./PhysicsSimulation";
+
 // P5Sketch.js
 export function sketch(p5, engine) {
   // p5.preload = preload(p5);
   p5.setup = setup(p5);
   p5.draw = draw(p5, engine);
-  // p5.mousePressed = () => mousePressed(p5);
+  p5.mousePressed = () => mousePressed(p5);
 }
 function setup(p5) {
   return () => {
@@ -81,7 +83,8 @@ const renderBodies = (p5, engine) => {
         );
         p5.pop();
       }
-    } else if (body.label === "bullet") {
+    }
+    if (body.label === "bullet") {
       p5.push();
       p5.fill(0, 0, 0);
       p5.circle(body.position.x, body.position.y, 20);
@@ -91,3 +94,6 @@ const renderBodies = (p5, engine) => {
 };
 
 // Add separate functions for renderPlayer, renderWall, and renderBullet if needed
+function mousePressed(p5) {
+  createBullet(p5);
+}

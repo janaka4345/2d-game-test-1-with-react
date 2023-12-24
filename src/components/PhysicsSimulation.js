@@ -1,15 +1,17 @@
 // PhysicsSimulation.js
 import { useEffect, useRef } from "react";
-import { Engine, Bodies, Runner, Composite } from "matter-js";
-
+import { Engine, Bodies, Runner, Composite, Body } from "matter-js";
+let player;
+let engine;
 export const createPhysicsSimulation = () => {
-  const engine = useRef(
+  engine = useRef(
     Engine.create({
-      // gravity: { x: 0, y: 0 },
+      gravity: { x: 0, y: 0 },
     }),
   );
 
   useEffect(() => {
+    console.log(engine.current);
     const cw = 400;
     const ch = 400;
 
@@ -32,7 +34,7 @@ export const createPhysicsSimulation = () => {
       }),
     ];
 
-    const player = Bodies.circle(cw / 2, ch / 2, 50, {
+    player = Bodies.circle(cw / 2, ch / 2, 50, {
       label: "player",
       // isStatic: true,
     });
@@ -51,4 +53,51 @@ export const createPhysicsSimulation = () => {
   }, []);
 
   return { engine };
+};
+export const createBullet = (p5) => {
+  const bullet = Bodies.circle(
+    player.position.x +
+      50 *
+        Math.cos(
+          Math.atan2(
+            p5.mouseY - player.position.y,
+            p5.mouseX - player.position.x,
+          ),
+        ),
+    player.position.y +
+      50 *
+        Math.sin(
+          Math.atan2(
+            p5.mouseY - player.position.y,
+            p5.mouseX - player.position.x,
+          ),
+        ),
+    10,
+    {
+      label: "bullet",
+      gravity: { x: 0, y: 0 },
+      // velocity: { x: 30, y: 30 },
+      // setPosition: { x: 100, y: 100 },
+    },
+  );
+  Body.setVelocity(bullet, {
+    x:
+      5 *
+      Math.cos(
+        Math.atan2(
+          p5.mouseY - player.position.y,
+          p5.mouseX - player.position.x,
+        ),
+      ),
+    y:
+      5 *
+      Math.sin(
+        Math.atan2(
+          p5.mouseY - player.position.y,
+          p5.mouseX - player.position.x,
+        ),
+      ),
+  });
+
+  Composite.add(engine.current.world, [bullet]);
 };
