@@ -55,6 +55,7 @@ export const createPhysicsSimulation = () => {
   return { engine };
 };
 export const createBullet = (p5) => {
+  console.log(engine.current);
   const bullet = Bodies.circle(
     player.position.x +
       50 *
@@ -100,4 +101,17 @@ export const createBullet = (p5) => {
   });
 
   Composite.add(engine.current.world, [bullet]);
+};
+export const collitionDetection = () => {
+  engine.current.detector.pairs.collisionActive.forEach((colliders) => {
+    if (
+      colliders.bodyA.label === "bullet" &&
+      colliders.bodyB.label === "bullet"
+      //  ||
+      // (colliders.bodyA.label === "box" &&
+      //   colliders.bodyB.label === "player")
+    ) {
+      Composite.remove(engine.current.world, [colliders.bodyA]);
+    }
+  });
 };

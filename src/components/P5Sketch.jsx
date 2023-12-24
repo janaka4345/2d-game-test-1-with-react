@@ -1,4 +1,4 @@
-import { createBullet } from "./PhysicsSimulation";
+import { collitionDetection, createBullet } from "./PhysicsSimulation";
 
 // P5Sketch.js
 export function sketch(p5, engine) {
@@ -16,6 +16,8 @@ function draw(p5, engine) {
   return () => {
     p5.background(250, 120, 0);
     renderBodies(p5, engine);
+
+    collitionDetection();
   };
 }
 
