@@ -55,7 +55,7 @@ export const createPhysicsSimulation = () => {
   return { engine };
 };
 export const createBullet = (p5) => {
-  console.log(engine.current);
+  // console.log(engine.current);
   const bullet = Bodies.circle(
     player.position.x +
       50 *
